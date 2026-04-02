@@ -1,12 +1,14 @@
 import os
-import requests, csv
+import requests
+import csv
 import logging
 from dotenv import load_dotenv
 
+# --- CONFIG ---
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
-
-logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(message)s")
+if not API_KEY:
+    raise ValueError("API_KEY not found in environment variables")
 
 OUTPUT_SCHEMA = [
     "place",
@@ -17,6 +19,8 @@ OUTPUT_SCHEMA = [
     "humidity",
     "wind_speed",
 ]
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s")
 
 
 # --- STEP 1: FETCH GEO COORDINATES ---
